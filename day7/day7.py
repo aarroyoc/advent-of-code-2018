@@ -25,13 +25,10 @@ def duration(step):
 
 if __name__ == "__main__":
     G,starter = read_file()
-    print(starter)
     path = list()
     to_visit = sorted(starter,reverse=True)
-    
-    """
+
     while len(to_visit) > 0:
-        print(to_visit)
         node = to_visit.pop()
         path.append(node)
         neighbours = G[node]
@@ -45,7 +42,11 @@ if __name__ == "__main__":
                     to_visit.append(n)
         to_visit = sorted(to_visit,reverse=True)
     print("".join(path))
-    """
+
+    end_letter = path[-1]
+    path = list()
+    to_visit = sorted(starter,reverse=True)
+    
     second = 0
     workers = list()
     # Trabajo Actual, segundo que termina
@@ -78,7 +79,7 @@ if __name__ == "__main__":
                             if allCompleted:
                                 to_visit.append(n)
                     to_visit = sorted(to_visit,reverse=True)
-                if workers[i][0] == "L":
+                if workers[i][0] == end_letter:
                     print("Finish point")
                     print("Seconds: %d" % second)
                     end = True
