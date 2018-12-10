@@ -27,9 +27,9 @@ def min_react(line,letter):
     line = [c for c in line if c.lower() != letter]
     return len(react(line))
 
-if __name__ == "__main__":
+def day5(file):
 
-    with open("input.txt") as f:
+    with open(file) as f:
         line = f.readline()
     l = react(line)
     """
@@ -44,9 +44,10 @@ if __name__ == "__main__":
                 del line[i-1]
                 break
     """
-    print("Units: %d" % (len(l)))
+    units = len(l)
     
     m = min([min_react(line,char) for char in string.ascii_lowercase])
-    print("Minimum length: %d" % (m))
+    
+    return units,m
 
 

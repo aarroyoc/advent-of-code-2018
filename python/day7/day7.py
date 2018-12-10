@@ -1,12 +1,12 @@
 import networkx as nx
 import re
 
-def read_file():
+def read_file(file):
     first = set()
     second = set()
     G = nx.DiGraph()
     prog = re.compile("Step ([A-Z]) must be finished before step ([A-Z]) can begin.")
-    with open("input.txt") as f:
+    with open(file) as f:
         lines = f.readlines()
     for line in lines:
         r = prog.match(line.strip())
@@ -23,8 +23,8 @@ def read_file():
 def duration(step):
     return 60+ord(step)-64
 
-if __name__ == "__main__":
-    G,starter = read_file()
+def day7(file):
+    G,starter = read_file(file)
     path = list()
     to_visit = sorted(starter,reverse=True)
 
@@ -41,7 +41,8 @@ if __name__ == "__main__":
                 if allCompleted:
                     to_visit.append(n)
         to_visit = sorted(to_visit,reverse=True)
-    print("".join(path))
+    #print("".join(path))
+    work_route = "".join(path)
 
     end_letter = path[-1]
     path = list()
@@ -80,8 +81,9 @@ if __name__ == "__main__":
                                 to_visit.append(n)
                     to_visit = sorted(to_visit,reverse=True)
                 if workers[i][0] == end_letter:
-                    print("Finish point")
-                    print("Seconds: %d" % second)
+                    #print("Finish point")
+                    #print("Seconds: %d" % second)
+
                     end = True
                 if len(to_visit) > 0:
                     node = to_visit.pop()
@@ -89,6 +91,7 @@ if __name__ == "__main__":
                     workers[i][0] = node
                 else:
                     workers[i][0] = "."
+    return work_route,second
         
         
 

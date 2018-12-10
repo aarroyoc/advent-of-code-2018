@@ -1,10 +1,10 @@
 import re
 import math
 
-def read_file():
+def read_file(file):
     stars = list()
     p = re.compile("position=<([ -][0-9]+), ([ -][0-9]+)> velocity=<([ -][0-9]+), ([ -][0-9]+)>")
-    with open("input.txt") as f:
+    with open(file) as f:
         lines = f.readlines()
     for line in lines:
         m = p.match(line.strip())
@@ -23,8 +23,8 @@ def print_stars(stars):
     max_width = stars[0][0]
     min_height = min(stars,key=lambda x: x[1])[1]
     max_height = max(stars,key=lambda x: x[1])[1]
+    s = str()
     for j in range(min_height,max_height+1):
-        s = str()
         p = [star for star in stars if star[1] == j]
         # SORT and POP/PUSH
         for i in range(min_width,max_width+1):
@@ -35,7 +35,9 @@ def print_stars(stars):
                     s += "#"
                 else:
                     s += "."
-        print(s)
+        s += "\n"
+
+    return s
 
 def step(stars):
     a = map(lambda x: [x[0]+x[2],x[1]+x[3],x[2],x[3]],stars)
@@ -51,21 +53,31 @@ def area(stars):
     area = (max_width-min_width)*(max_height-min_height)
     return area
 
-if __name__ == "__main__":
-    stars = read_file()
+def day10(file):
+    stars = read_file(file)
     a = area(stars)
     steps = 0
     while area(step(stars)) < a:
         stars = step(stars)
         steps += 1
         a = area(stars)
-    print_stars(stars)
+    return print_stars(stars),steps
+
+if __name__ == "__main__":
+    stars = read_file("input.txt")
+    a = area(stars)
+    steps = 0
+    while area(step(stars)) < a:
+        stars = step(stars)
+        steps += 1
+        a = area(stars)
+    print(print_stars(stars))
     while True:
         a = input("Continue?(yes/no)")
         if a == "yes":
             stars = step(stars)
             steps += 1 
-            print_stars(stars)
+            print(print_stars(stars))
             print("STEPS: %d" % steps)
         elif a == "no":
             break

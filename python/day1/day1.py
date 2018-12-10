@@ -1,8 +1,6 @@
 FREQS = set()
 
-def apply_freq(freq):
-    with open("input.txt") as f:
-        lines = f.readlines()
+def apply_freq(freq,lines):
     for line in lines:
         signo = line[0:1]
         numero = int(line[1:])
@@ -16,10 +14,20 @@ def apply_freq(freq):
             FREQS.add(freq)
     return (False,freq)
 
-if __name__ == "__main__":
+def part1(file):
+    with open(file) as f:
+        lines = f.readlines()
+    _,freq = apply_freq(0,lines)
+    FREQS.clear()
+    return freq
+
+def part2(file):
+    with open(file) as f:
+        lines = f.readlines()
     freq = 0
     while True:
-        end,freq = apply_freq(freq)
+        end,freq = apply_freq(freq,lines)
         if end:
             break
-    print("FREQ FINAL: %d" % freq)
+    FREQS.clear()
+    return freq

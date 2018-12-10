@@ -1,15 +1,15 @@
 import re
 from collections import defaultdict
 
-def read_file():
-    with open("input.txt") as f:
+def read_file(file):
+    with open(file) as f:
         lines = f.readlines()
     lines.sort()
     return lines
 
 
-if __name__ == "__main__":
-    lines = read_file()
+def day4(file):
+    lines = read_file(file)
     guard_prog = re.compile(r"[* ]+Guard #([0-9]+)")
     time_prog = re.compile(r"\[([0-9]+)-([0-9]+)-([0-9]+) ([0-9]+):([0-9]+)")
     current_guard = 0
@@ -40,7 +40,7 @@ if __name__ == "__main__":
             max_guard_sleeptime = s
             max_guard = guard
 
-    print("El guardia que más duerme es el %s con %d minutos" % (max_guard,max_guard_sleeptime))
+    #print("El guardia que más duerme es el %s con %d minutos" % (max_guard,max_guard_sleeptime))
 
     #Calcular minuto ideal
     max_minute = 0
@@ -50,9 +50,10 @@ if __name__ == "__main__":
             max_minute = minute
             max_minute_times = timetable[max_guard][minute]
 
-    print("El guardia duerme más en el minuto %d (%d veces)" % (max_minute,max_minute_times))
+    #print("El guardia duerme más en el minuto %d (%d veces)" % (max_minute,max_minute_times))
 
-    print("CHECKSUM %d" % (max_minute*int(max_guard)))
+    #print("CHECKSUM %d" % (max_minute*int(max_guard)))
+    checksum1 = max_minute*int(max_guard)
 
     # Guarda con el minuto qué mas veces ha estado dormido
     max_guard = ""
@@ -64,5 +65,7 @@ if __name__ == "__main__":
                 max_guard = guard
                 guard_minute = minute
                 guard_minutes = timetable[guard][minute]
-    print("El guardia %s se ha dormindo en el minuto %d (%d veces)" % (max_guard,guard_minute,guard_minutes))
-    print("CHECKSUM %d" % (guard_minute*int(max_guard)))
+    #print("El guardia %s se ha dormindo en el minuto %d (%d veces)" % (max_guard,guard_minute,guard_minutes))
+    #print("CHECKSUM %d" % (guard_minute*int(max_guard)))
+    checksum2 = guard_minute*int(max_guard)
+    return checksum1,checksum2

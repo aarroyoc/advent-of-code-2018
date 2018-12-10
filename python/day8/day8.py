@@ -22,8 +22,8 @@ def read_node(start,numbers):
         
 
 
-def read_file():
-    with open("input.txt") as f:
+def read_file(file):
+    with open(file) as f:
         line = f.readline()
     numbers = [int(x) for x in line.split()]
     G = read_node(0,numbers)
@@ -40,8 +40,8 @@ def node_value(N):
         return s
         
 
-if __name__ == "__main__":
-    G = read_file()
+def day8(file):
+    G = read_file(file)
 
     to_visit = deque()
     to_visit.append(G)
@@ -50,5 +50,6 @@ if __name__ == "__main__":
         N = to_visit.popleft()
         metadata_sum += sum(N["metadata"])
         to_visit.extend(N["children"])
-    print("METADATA SUM: %d" % metadata_sum)
-    print("NODE VALUE: %d" % node_value(G))
+    #print("METADATA SUM: %d" % metadata_sum)
+    #print("NODE VALUE: %d" % node_value(G))
+    return metadata_sum,node_value(G)

@@ -10,9 +10,9 @@ class Claim():
     width: int
     height: int
 
-def read_file():
+def read_file(file):
     claims = []
-    with open("input.txt") as f:
+    with open(file) as f:
         lines = f.readlines()
     prog = re.compile(r"#([0-9]+) @ ([0-9]+),([0-9]+): ([0-9]+)x([0-9]+)")
     for line in lines:
@@ -44,14 +44,13 @@ def find_nonoverlaping(claims,area):
         if not overlaps:
             return claim.id 
 
-if __name__ == "__main__":
-    claims = read_file()
+def day3(file):
+    claims = read_file(file)
     area = defaultdict(lambda: 0)
     for claim in claims:
         for i in range(claim.x,claim.x+claim.width):
             for j in range(claim.y,claim.y+claim.height):
                 area[(i,j)] += 1
     overlaps = count_overlaps(area)
-    print("Overlaps: %d" % overlaps)
     non_overlaping = find_nonoverlaping(claims,area)
-    print("ID: %d" % non_overlaping)
+    return (overlaps,non_overlaping)

@@ -1,7 +1,6 @@
 from dataclasses import dataclass
 from collections import defaultdict
 import math
-import pdb
 
 @dataclass
 class Punto:
@@ -12,8 +11,8 @@ class Punto:
 def distancia(p1,p2):
     return abs(p1.x-p2.x)+abs(p1.y-p2.y)
 
-if __name__ == "__main__":
-    with open("input.txt") as f:
+def day6(file):
+    with open(file) as f:
         lines = f.readlines()
     puntosControl = list()
     xlist = list()
@@ -55,33 +54,10 @@ if __name__ == "__main__":
     for p in world:
         if not world[p] in excluidos:
             conteo[world[p]] += 1
-    print("Maximum finite area: %d" % max(conteo.values()))
-    print("Region size: %d" % world_total)
+    max_finite_area = max(conteo.values())
+    region_size = world_total
 
-    # Tenemos los puntos seguros en world_total
-    """
-    i,j = world_total.pop()
-    world_total.add((i,j))
-    print("Max Region: %d" % len(world_total))
-
-    visit = set()
-    to_visit = set()
-    to_visit.add((i,j))
-    while len(to_visit) > 0:
-        x,y = to_visit.pop()
-        visit.add((x,y))
-        if (x+1,y) in world_total and not (x+1,y) in visit:
-            to_visit.add((x+1,y))
-        if (x-1,y) in world_total and not (x-1,y) in visit:
-            to_visit.add((x-1,y))
-        if (x,y+1) in world_total and not (x,y+1) in visit:
-            to_visit.add((x,y+1))
-        if (x,y-1) in world_total and not (x,y-1) in visit:
-            to_visit.add((x,y-1))
-    maxRegion = len(visit)
-    print("Max Region: %d" % maxRegion)
-    """
-
+    return max_finite_area,region_size
         
 
 
