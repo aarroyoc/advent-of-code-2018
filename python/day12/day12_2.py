@@ -1,9 +1,7 @@
 import re
-import sys
 from collections import defaultdict
 
 XMIN = -2
-XMAX = 0
 
 def find(rules,current):
     if len(current) < 5:
@@ -41,12 +39,11 @@ def sum_pots(state):
             n += i + XMIN
     return n
 
-if __name__ == "__main__":
-    sys.setrecursionlimit(20000)
-    state,rules = read_file("input.txt")
+def day12(file):
+    global XMIN
+    state,rules = read_file(file)
     XMAX = len(state)+1
     state = "..%s.." % state
-    #for _ in range(50000000000):
     sums = list()
     i = 0
     while len(sums) < 3 or sums[-1]-sums[-2] != sums[-2]-sums[-3]:
@@ -59,13 +56,10 @@ if __name__ == "__main__":
             XMIN -= 2
         if state[-1] == "#" or state[-2] == "#":
             state = "%s.." % state
-            XMAX += 2
         sums.append(sum_pots(state))
         i += 1
     diff = sums[-1]-sums[-2]
     missing = 50000000000 - i
     n = missing*diff + sums[-1]
 
-    print(n)
-
-    
+    return n

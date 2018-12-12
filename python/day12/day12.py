@@ -30,15 +30,6 @@ def find(rules,current):
         return rules[current]
 
 
-def hash_iter(state,rules):
-    xmin = min(state.keys())
-    xmax = max(state.keys())
-    par_states = (len(state) // 10) * 10
-    current = ["%c" % state[x] for x in range(xmin,xmin+par_states)]
-    missing = ["%c" % state[x] for x in range(xmin+par_states,xmax)]
-    missing = len(state) % 10
-
-
 def iter(state,rules):
     new_state = dict()
     xmin = min(state.keys())
@@ -75,12 +66,12 @@ def print_state(state):
 def day12(file):
     state,rules = read_file(file)
     state = parse_state(state)
-    for i in range(3000):
+    for i in range(20):
         #print_state(state)
         state = iter(state,rules)
     #print_state(state)
     n = sum_pots(state)
-    print(n)
+    return n
 
 if __name__ == "__main__":
     day12("input.txt")

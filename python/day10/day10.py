@@ -1,5 +1,4 @@
 import re
-import math
 
 def read_file(file):
     stars = list()
